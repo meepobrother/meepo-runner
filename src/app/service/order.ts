@@ -62,29 +62,29 @@ export class RunnerOrderService {
             this.order$.next(res);
         });
 
+
         let total = new Widget('total', '总价');
         total.unit = '';
         this.total$.next(total);
         // 初始距离
-        let juli = new Widget();
+        let juli = new Widget('juli', '距离', '公里', 0, 0, '未知');
         this.juli$.next(juli);
         // 时间
-        let time = new Widget('time', '时间');
+        let time = new Widget('time', '时间', '分钟', 0, 0, '立即开始');
         this.time$.next(time);
         // 重量
-        let weight = new Widget('weight', '重量');
+        let weight = new Widget('weight', '重量', '公斤', 0, 0, '0公斤');
         this.weight$.next(weight);
         // 体积
-        let tiji = new Widget('tiji', '体积');
+        let tiji = new Widget('tiji', '体积', '立方米', 0, 0, '0立方米');
         this.tiji$.next(tiji);
         // 价格
-        let money = new Widget('money', '物品价格');
+        let money = new Widget('money', '物品价格', '元', 0, 0, '未填写');
         this.money$.next(money);
         // 小费加急
-        let fee = new Widget('fee', '小费');
+        let fee = new Widget('fee', '小费', '元', 0, 0, '无小费');
         this.fee$.next(fee);
-        let goods = new Widget('goods', '商品');
-        goods.unit = '个';
+        let goods = new Widget('goods', '其他', '个', 0, 0, '未选择');
         this.goods$.next(goods);
 
         console.log('runner order service sn is', this.sn);
@@ -97,6 +97,7 @@ export class RunnerOrderService {
         weight.num = val;
         this.weight$.next(weight);
     }
+
 
     init() {
 
@@ -113,6 +114,14 @@ export class AddressWidget {
     mobile: string;
 }
 
+export class TimeWeight {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+}
+
 export class Widget {
     money: number = 0;
     needPay: boolean = true;
@@ -126,7 +135,8 @@ export class Widget {
         public unit: string = '公里',
         public num: number = 0,
         public price: number = 0,
-        public desc: string = ''
+        public desc: string = '',
+        public show: boolean = false
     ) { }
 }
 

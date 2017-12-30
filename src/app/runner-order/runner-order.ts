@@ -5,6 +5,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RunnerOrderService, Widget } from '../service/order';
+import { RunnerAppService } from '../service/app';
+
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -14,21 +16,13 @@ import { Subject } from 'rxjs/Subject';
     encapsulation: ViewEncapsulation.None
 })
 export class RunnerOrderComponent implements OnInit {
-    total$: Subject<number> = new Subject();
     constructor(
-        public order: RunnerOrderService
+        public order: RunnerOrderService,
+        public cd: ChangeDetectorRef,
+        public app: RunnerAppService
     ) {
-        this.total$.next(0);
-        this.order.order$.subscribe(res => {
-            let price = 0;
-            res.map((item: Widget) => {
-                if (item.money) {
-                    price += item.money * 1;
-                } else {
-                    price += item.num * item.price;
-                }
-                this.total$.next(price);
-            });
+        this.app.total$.subscribe(res => {
+            this.cd.detectChanges();
         });
     }
 

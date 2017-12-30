@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { TimeWeight, Widget } from './order';
 @Injectable()
 export class RunnerUtilService {
 
@@ -45,6 +45,45 @@ export class RunnerUtilService {
             }
         });
         return items;
+    }
+
+    time(res: TimeWeight, timeItems: any[]): any {
+        let timeAddItem = {
+            price: 0,
+            start: '0:00',
+            end: '23:59'
+        };
+        const Hour = res.hour;
+        const minute = res.minute;
+        timeItems.map(res => {
+            const start = res.start.split(':');
+            const end = res.end.split(':');
+            const startHour = parseInt(start[0], 10);
+            const startMinute = parseInt(start[1], 10);
+            const endHour = parseInt(end[0], 10);
+            const endMinute = parseInt(end[1], 10);
+
+            if (Hour > startHour && Hour < endHour) {
+                if (res) {
+                    timeAddItem = res;
+                }
+            } else if (Hour === startHour && Hour === endHour) {
+                if (minute >= startMinute && minute <= endMinute) {
+                    if (res) {
+                        timeAddItem = res;
+                    }
+                }
+            } else if (Hour < startHour || Hour > endHour) {
+
+            } else {
+                if (minute >= startMinute) {
+                    if (res) {
+                        timeAddItem = res;
+                    }
+                }
+            }
+        });
+        return timeAddItem;
     }
     // 公式
     xcode() { }
