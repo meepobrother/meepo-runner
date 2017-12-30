@@ -99,7 +99,7 @@ export class RunnerMapComponent implements OnInit {
                         this.bmap.clearOverlays();
                         this.core.closeLoading();
                     } else {
-                        this.bmap.getRoutePlan(res[0], res[1]).subscribe(routes => {
+                        let route$ = this.bmap.getRoutePlan(res[0], res[1]).subscribe(routes => {
                             this.distance = Math.floor(routes.distance / 10) / 100;
                             this.duration = Math.floor(routes.duration / 60);
                             if (isNaN(this.distance)) {
@@ -126,6 +126,7 @@ export class RunnerMapComponent implements OnInit {
                                 });
                             }
                             this.bmap.addLine(arrPois);
+                            route$.unsubscribe();
                             this.cd.detectChanges();
                         });
                     }
