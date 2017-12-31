@@ -13,6 +13,8 @@ import { RunnerMapComponent } from './runner-map/runner-map';
 import { RunnerInfoComponent } from './runner-info/runner-info';
 import { RunnerHeaderComponent } from './runner-header/runner-header';
 import { RunnerTimeComponent } from './runner-time/runner-time';
+import { RunnerRuleComponent } from './runner-rule/runner-rule';
+
 
 export const RunnerComponents = [
     RunnerOrderComponent,
@@ -20,7 +22,8 @@ export const RunnerComponents = [
     RunnerMapComponent,
     RunnerInfoComponent,
     RunnerHeaderComponent,
-    RunnerTimeComponent
+    RunnerTimeComponent,
+    RunnerRuleComponent
 ];
 
 import { MeepoCoreServiceModule } from 'meepo-core';
@@ -32,6 +35,7 @@ import { UaModule } from 'meepo-ua';
 import { MeepoBmapModule } from 'meepo-bmap'; 
 import { MeepoCoreModule } from 'meepo-core'; 
 import { PickerModule } from 'meepo-picker'; 
+import { XscrollModule } from 'meepo-xscroll'; 
 
 
 import "rxjs/add/operator/combineLatest";
@@ -45,7 +49,8 @@ import "rxjs/add/operator/map";
     imports: [
         CommonModule, MeepoCoreServiceModule, AxiosModule,
         MeepoFormsModule, UuidModule, JssdkModule, UaModule,
-        MeepoBmapModule, MeepoCoreModule, PickerModule
+        MeepoBmapModule, MeepoCoreModule, PickerModule,
+        XscrollModule
     ],
     exports: [
         ...RunnerComponents

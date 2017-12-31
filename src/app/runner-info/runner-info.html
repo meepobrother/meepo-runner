@@ -1,3 +1,26 @@
-<div class="meepo__bmap_order_info_tip" *ngIf="!showOrderDetail" (click)="switchShowOrderDetail()">
-    价格信息
+<div class="meepo__bmap_order_info_tip" *ngIf="!showInfo" (click)="switchShowOrderDetail()">
+    计价详情
+</div>
+<div class="meepo__bmap_order_info" (click)="closeInfo()" [class.shown]="showInfo" style="bottom:auto;top:0px;max-height: 100%;height: auto;">
+    <div class="over_info_container">
+        <xscroll [hasMore]="false" [hasRefresh]="false" [full]="true">
+            <h2 class="title">计价详情</h2>
+            <runner-order (onCancel)="hideDetail()"></runner-order>
+        </xscroll>
+    </div>
+</div>
+<div class="weui-mask" *ngIf="showOrderDetail">
+</div>
+<div class="meepo_order_info" [class.shown]="showOrderDetail">
+    <div class="meepo_order_info_container">
+        <xscroll [hasMore]="false" [hasRefresh]="false" [full]="true">
+            <runner-forms (onRefresh)="onRefresh($event)">
+                <div class="footer-btn_row">
+                    <a href="javascript:;" (click)="cancel()" class="weui-btn weui-btn_default">关闭</a>
+                    <a href="javascript:;" (click)="finish()" class="weui-btn weui-btn_primary">{{btnTitle || '立即下单'}}({{total}}元)</a>
+                </div>
+                <div style="height: 50px;"></div>
+            </runner-forms>
+        </xscroll>
+    </div>
 </div>

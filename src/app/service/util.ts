@@ -50,11 +50,12 @@ export class RunnerUtilService {
     time(res: TimeWeight, timeItems: any[]): any {
         let timeAddItem = {
             price: 0,
-            start: '0:00',
-            end: '23:59'
+            start: `${res.hour}:${res.minute}`,
+            end: `**`
         };
         const Hour = res.hour;
         const minute = res.minute;
+
         timeItems.map(res => {
             const start = res.start.split(':');
             const end = res.end.split(':');
@@ -75,6 +76,12 @@ export class RunnerUtilService {
                 }
             } else if (Hour < startHour || Hour > endHour) {
 
+            } else if (Hour === endHour) {
+                if (minute <= endMinute) {
+                    if (res) {
+                        timeAddItem = res;
+                    }
+                }
             } else {
                 if (minute >= startMinute) {
                     if (res) {

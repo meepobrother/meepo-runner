@@ -1,7 +1,7 @@
 import {
     Component, OnInit, ViewChild, ElementRef,
     ChangeDetectionStrategy, ChangeDetectorRef,
-    ViewEncapsulation
+    ViewEncapsulation, EventEmitter, Input, Output
 } from '@angular/core';
 import { RunnerOrderService, Widget } from '../service/order';
 import { RunnerAppService } from '../service/app';
@@ -18,7 +18,7 @@ import { UaService } from 'meepo-ua';
 })
 export class RunnerFormsComponent implements OnInit {
     items$: Observable<any>;
-
+    @Output() onRefresh: EventEmitter<any> = new EventEmitter();
     setting: any;
     adv: any;
     baojia: any;
@@ -36,34 +36,9 @@ export class RunnerFormsComponent implements OnInit {
     voice: any;
     weight: any;
     money: any;
-
-
-    form: any = {
-        start: {
-            detail: '',
-            mobile: '',
-            city: '',
-            point: {
-                lat: '',
-                lon: ''
-            },
-            address: '',
-            title: ''
-        },
-        end: {
-            detail: '',
-            mobile: '',
-            city: '',
-            point: {
-                lat: '',
-                lon: ''
-            },
-            address: '',
-            title: ''
-        }
-    };
-
-
+    baojias: any;
+    active: any;
+    items: any[] = [];
     constructor(
         public order: RunnerOrderService,
         public app: RunnerAppService,
@@ -78,6 +53,15 @@ export class RunnerFormsComponent implements OnInit {
             });
             return items;
         });
+        this.items$.debounceTime(300).subscribe(res => {
+            this.items = res;
+            this.cd.markForCheck();
+        });
+        this.app.active$.subscribe(res => {
+            let { baojias } = res;
+            this.baojias = baojias;
+            this.cd.markForCheck();
+        });
         this.app.setting$.subscribe(items => {
             let {
                 adv, baojia,
@@ -87,12 +71,10 @@ export class RunnerFormsComponent implements OnInit {
                 rule, setting, tiji,
                 time, voice, weight
             } = items;
-            this.adv = adv;
             this.baojia = baojia;
             this.btnTitle = btnTitle;
             this.end = end;
             this.start = start;
-            this.gonggao = gonggao;
             this.image = image;
             this.money = money;
             this.msg = msg;
@@ -104,16 +86,30 @@ export class RunnerFormsComponent implements OnInit {
             this.time = time;
             this.voice = voice;
             this.weight = weight;
-            console.log(this.start);
-            this.cd.markForCheck();
+            this.cd.detectChanges();
         });
+
+        this.app.start$.subscribe(res => {
+            this.startAddress = res;
+            this.cd.detectChanges();
+        });
+        this.app.end$.subscribe(res => {
+            this.endAddress = res;
+            this.cd.detectChanges();
+        });
+    }
+    startAddress: any;
+    endAddress: any;
+
+    onSelect(e: any) {
+        this.app.setBaojia(e);
     }
 
     ngOnInit() {
         if (this.ua.isWechat()) {
             this.wx.openAddress().subscribe(res => {
-                this.form.start.mobile = res.telNumber;
-                this.form.start.detail = res.detailInfo;
+                this.app.start.mobile = res.telNumber;
+                this.app.start.detail = res.detailInfo;
             });
         }
     }
@@ -128,5 +124,40 @@ export class RunnerFormsComponent implements OnInit {
 
     changeJifei(e: any) {
         this.app.setJifei(e);
+    }
+
+    showTiji() {
+        this.tiji.detail = !this.tiji.detail;
+        this.onRefresh.emit('1');
+    }
+
+    showTip() {
+        this.app.showTip();
+    }
+
+    agree() {
+        this.app.switchAgree();
+    }
+
+    changeLength(e: any) {
+        console.log(this.app.tiji);
+        this.app.tiji.length = e;
+    }
+
+    changeWidth(e: any) {
+        this.app.tiji.width = e;
+    }
+
+    changeHeight(e: any) {
+        this.app.tiji.height = e;
+    }
+
+    imageUpload(e: any) {
+        console.log(e);
+        this.app.images = e;
+    }
+
+    setMsg(e: any) {
+        this.app.msg = e;
     }
 }

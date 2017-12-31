@@ -1,0 +1,43 @@
+.name {
+    &.baojia {
+        color: gray;
+        font-size: .8em;
+    }
+}
+
+.job {
+    min-width: 3em;
+}
+
+.text-flex {
+    display: flex;
+    flex-direction: row;
+    .name {
+        flex: 1;
+    }
+}
+
+.runner_order_row {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    align-items: center;
+    min-height: 1em;
+    padding: 5px 10px;
+    .runner_order_item_left {
+        width: 5em;
+        text-align: right;
+        margin-right: 5px;
+        font-size: .9em;
+        color: gray;
+    }
+    .runner_order_item_main {
+        flex: 1;
+        font-size: .9em;
+    }
+    .runner_order_item_right{
+        width: 5em;
+        text-align: right;
+        margin-right: 5px;
+    }
+}

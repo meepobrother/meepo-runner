@@ -1,0 +1,93 @@
+.meepo__bmap_order_info_tip {
+    position: absolute;
+    right: 0px;
+    text-align: end;
+    height: 0;
+    width: auto;
+    top: 100px;
+    background: rgba(0, 0, 0, .8);
+    color: #fff;
+    padding: 10px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .7em;
+    z-index: 99999;
+}
+
+.meepo_order_info {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    height: auto;
+    box-shadow: 2px 4px 12px #ccc;
+    display: none;
+    visibility: hidden;
+    background: rgba(255, 255, 255, .9);
+    z-index: 1001;
+    bottom: 0px;
+    .meepo_order_info_container {
+        padding: 0px;
+        position: relative;
+        background: #efefef;
+        height: 100%;
+    }
+    runner-order,
+    xscroll {
+        position: relative;
+        display: block;
+    }
+    xscroll {
+        margin-top: 10px;
+    }
+    .meepo_order_info_header {
+        display: flex;
+        flex-direction: row;
+        .meepo_order_info_header_item {
+            flex: 1;
+            text-align: center;
+            line-height: 30px;
+            height: 30px;
+        }
+    }
+    &.shown {
+        display: block;
+        visibility: visible;
+    }
+}
+
+.footer-btn_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    .weui-btn {
+        margin: 0px;
+        flex: 1;
+        font-size: .9em;
+    }
+    .weui-btn_primary {
+        flex: 2;
+    }
+}
+
+.core-popover {
+    z-index: 10002;
+}
+
+runner-forms {
+    display: block;
+    position: relative;
+    height: 100%;
+}
+
+.meepo__bmap_order_info {
+    display: none;
+    visibility: hidden;
+    &.shown {
+        display: block;
+        visibility: visible;
+    }
+}

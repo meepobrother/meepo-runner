@@ -1,25 +1,11 @@
-<div class="form registerinfo-form" style="margin-top: 0px;padding-top: 0px;">
-    <div class="form-line base-form-line onepxborder-t">
-        <div class="input-extend-wrap onepxborder-b" *ngFor="let item of order.order$ | async">
-            <div class="input input-extend onepxborder-b" *ngIf="item.num  && item.show">
-                <label for="" class="txt">{{item.title}}</label>
-                <div class="text">
-                    <strong class="name">
-                        {{item.num}}{{item.unit}}
-                    </strong>
-                    <br>
-                    <em style="margin-left:0px;" class="job" [innerHTML]="item.desc"></em>
-                </div>
-            </div>
-            <div class="input input-extend onepxborder-b" *ngIf="item.num === 0 && item.show">
-                <label for="" class="txt">{{item.title}}</label>
-                <div class="text">
-                    <strong class="name" [innerHTML]="item.desc"></strong>
-                    <em class="job" *ngIf="item.needPay">
-                        <span>&nbsp;{{item.price}}元</span>
-                    </em>
-                </div>
-            </div>
+<ng-container *ngFor="let item of order.order$ | async">
+    <div class="runner_order_row" *ngIf="item.price > 0">
+        <div class="runner_order_item_left">
+            {{item.title}}
+        </div>
+        <div [innerHTML]="item.desc" class="runner_order_item_main"></div>
+        <div class="runner_order_item_right">
+            {{item.price}}元
         </div>
     </div>
-</div>
+</ng-container>

@@ -19,24 +19,7 @@ export class RunnerMapComponent implements OnInit {
     @Input() loading: boolean = true;
     isStart: boolean = true;
     @Input() sn: string;
-    start: any = {
-        point: {},
-        address: '',
-        title: '',
-        city: '',
-        mobile: '',
-        detail: ''
-    };
-    start$: Subject<any> = new Subject();
-    end: any = {
-        point: {},
-        address: '',
-        title: '',
-        city: '',
-        mobile: '',
-        detail: ''
-    };
-    end$: Subject<any> = new Subject();
+
     // 预约时间
     time: any;
     // 导航时间
@@ -47,9 +30,11 @@ export class RunnerMapComponent implements OnInit {
     endSetting: any;
     startSetting: any;
     timeSetting: any;
+    weightSetting: any;
     btnTitle: any;
 
     startEndCombineObserver: any;
+    total: any = 0;
     constructor(
         public address: BmapAddressSelectService,
         public uuid: UuidService,
@@ -59,159 +44,85 @@ export class RunnerMapComponent implements OnInit {
         public bmap: BmapService,
         public core: CoreService
     ) {
+        this.app.total$.subscribe(res => {
+            this.total = res;
+            this.cd.detectChanges();
+        });
         this.app.setting$.subscribe(res => {
             let {
-                end, start, time, btnTitle
+                end, start, time,
+                btnTitle, weight
             } = res;
             this.startSetting = start;
             this.endSetting = end;
+            this.weightSetting = weight;
             this.timeSetting = time;
             this.btnTitle = btnTitle;
-            this.cd.markForCheck();
-        });
-
-        this.bmap.getAddress$.subscribe(res => {
-            this.setAddress(res);
-            this.core.closeLoading();
             this.cd.detectChanges();
         });
-        this.address.show$.subscribe(res => {
-            let { isStart, data } = res;
-            if(data){
-                setTimeout(() => {
-                    this.isStart = !isStart;
-                }, 300);
+
+        this.app.start$.subscribe(res => {
+            if (res.address) {
+                this.startLoading = false;
+                this.cd.detectChanges();
             }
-            this.setAddress(data);
-            this.core.closeLoading();
         });
-        this.bmap.movestart$.subscribe(res => {
-            this.loading = true;
-            this.cd.detectChanges();
-            this.core.showLoading({ show: true, full: false });
+        this.app.end$.subscribe(res => {
+            if (res.address) {
+                this.endLoading = false;
+                this.cd.detectChanges();
+            }
         });
-
-        this.startEndCombineObserver =
-            this.start$.asObservable().combineLatest(this.end$.asObservable()).subscribe(res => {
-                // 计算距离 路径规划
-                if (res[0].address && res[1].address) {
-                    if (res[0].point === res[1].point) {
-                        this.bmap.clearOverlays();
-                        this.core.closeLoading();
-                    } else {
-                        let route$ = this.bmap.getRoutePlan(res[0], res[1]).subscribe(routes => {
-                            this.distance = Math.floor(routes.distance / 10) / 100;
-                            this.duration = Math.floor(routes.duration / 60);
-                            if (isNaN(this.distance)) {
-                                this.distance = 0;
-                                this.duration = 0;
-                            }
-                            // this.btnTitle = `总路程:${this.distance}公里`;
-                            this.getDistancePrice();
-                            let arrPois = [];
-                            if (routes && routes.steps) {
-                                routes.steps.map(step => {
-                                    const stepOriginLocation = step.stepOriginLocation;
-                                    const points = [];
-                                    step.pois.map(p => {
-                                        points.push(new this.bmap.BMap.Point(p.location.lng, p.location.lat));
-                                    });
-                                    const stepDestinationLocation = step.stepDestinationLocation;
-                                    arrPois = [
-                                        ...arrPois,
-                                        new this.bmap.BMap.Point(stepOriginLocation.lng, stepOriginLocation.lat),
-                                        ...points,
-                                        new this.bmap.BMap.Point(stepDestinationLocation.lng, stepDestinationLocation.lat)
-                                    ];
-                                });
-                            }
-                            this.bmap.addLine(arrPois);
-                            route$.unsubscribe();
-                            this.cd.detectChanges();
-                        });
-                    }
-                }
-            });
     }
 
     ngOnInit() {
         this.sn = this.sn || this.uuid.v1();
+        this.app.sn = this.sn;
     }
 
-    private setAddress(data: any) {
-        console.log(this.isStart);
-        if (this.isStart) {
-            this.setStart(data);
-        } else {
-            this.setEnd(data);
+    check() {
+        if (this.startSetting.show) {
+            if (!this.app.start.address) {
+                this.core.showToast({
+                    show: true,
+                    title: '请选择' + this.startSetting.title,
+                    message: this.startSetting.placeholder,
+                    type: 'warning'
+                });
+                return false;
+            }
         }
-    }
-
-    private setStart(data: any) {
-        if (data) {
-            this.setCityAndTitle(this.start, data);
-            this.startLoading = false;
-            this.start$.next(this.start);
+        if (this.endSetting.show) {
+            if (!this.app.end.address) {
+                this.core.showToast({
+                    show: true,
+                    title: '请选择' + this.endSetting.title,
+                    message: this.endSetting.placeholder,
+                    type: 'warning'
+                });
+                return false;
+            }
         }
-    }
-
-    private setCityAndTitle(res: any, data: any) {
-        if (data.city) {
-            res.city = data.city;
-            res.title = data.title;
-            res.address = data.address;
-        } else {
-            res.city = data.addressComponents.city;
-            res.title = data.surroundingPois.length > 0 ? data.surroundingPois[0].title : '';
-            res.address = data.surroundingPois.length > 0 ? data.surroundingPois[0].address : data.address;
+        if (this.weightSetting.show) {
+            if (!this.app.weight) {
+                this.core.showToast({
+                    show: true,
+                    title: '请输入' + this.weightSetting.title,
+                    message: this.weightSetting.placeholder,
+                    type: 'warning'
+                });
+                return false;
+            }
         }
-        res.point = data.point;
+        return true;
     }
-
-    private setEnd(data: any) {
-        if (data) {
-            this.setCityAndTitle(this.end, data);
-            this.endLoading = false;
-            this.end$.next(this.end);
-        }
-    }
-
-    private getDistancePrice() {
-        this.app.setDistance(this.distance);
-    }
-
-    myLocation(e: Event, isStart: boolean) {
-        e.stopPropagation();
-        e.preventDefault();
-        this.isStart = isStart;
-        if (isStart) {
-            this.startLoading = true;
-            this.endLoading = false;
-        } else {
-            this.endLoading = true;
-            this.startLoading = false;
-        }
-        this.core.showLoading({ show: true, full: false });
-        this.bmap.getCurrentPosition(false);
-    }
-
-    _onStartAddressSelect() {
-        this.isStart = true;
-        this.startLoading = true;
-        this.address.show(this.sn, true);
-    }
-
-    _onEndAddressSelect() {
-        this.isStart = false;
-        this.endLoading = true;
-        this.address.show(this.sn, false);
-    }
-
-    onTimePicker(e: any) {
-        this.time = e;
-    }
-
     finish() {
+        if (this.check()) {
+            this.app.next$.next(true);
+        }
+    }
 
+    setWeight(e: any) {
+        this.app.setWeight(e.target.value);
     }
 }

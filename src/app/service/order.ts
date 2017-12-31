@@ -44,6 +44,9 @@ export class RunnerOrderService {
     // 商品
     goods$: Subject<Widget> = new Subject();
 
+    baojia$: Subject<Widget> = new Subject();
+    tianqi$: Subject<Widget> = new Subject();
+
     sn: string = this.uuid.v1();
     constructor(
         public core: CoreService,
@@ -57,7 +60,9 @@ export class RunnerOrderService {
             this.tiji$.asObservable(),
             this.money$.asObservable(),
             this.fee$.asObservable(),
-            this.goods$.asObservable()
+            this.goods$.asObservable(),
+            this.baojia$.asObservable(),
+            this.tianqi$.asObservable()
         ).subscribe(res => {
             this.order$.next(res);
         });
@@ -86,6 +91,12 @@ export class RunnerOrderService {
         this.fee$.next(fee);
         let goods = new Widget('goods', '其他', '个', 0, 0, '未选择');
         this.goods$.next(goods);
+
+        let baojia = new Widget('baojia', '报价', '', 0, 0, '不保价');
+        this.baojia$.next(baojia);
+
+        let tianqi = new Widget('tianqi', '其他', '', 0, 0, '');
+        this.tianqi$.next(tianqi);
 
         console.log('runner order service sn is', this.sn);
     }

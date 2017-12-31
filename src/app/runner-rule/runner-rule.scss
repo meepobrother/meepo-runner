@@ -1,0 +1,27 @@
+.meepo__bmap_order_info {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 10004;
+    background-color: #fff;
+    .over_info_container {
+        position: relative;
+        height: 100%;
+        xscroll {
+            padding: 10px;
+            height: 100%;
+            display: block;
+            position: relative;
+        }
+        .title {
+            text-align: center;
+            font-size: 1.1em;
+        }
+        p {
+            font-size: .9em;
+            color: #000;
+        }
+    }
+}
