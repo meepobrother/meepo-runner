@@ -31,21 +31,21 @@ export class AppComponent implements OnInit {
       show: false,
       items: {
         task: {
-          show: true,
+          show: false,
           cb: () => {
             this.showMyTask = true;
             this.cd.markForCheck();
           }
         },
         money: {
-          show: true,
+          show: false,
           cb: () => {
             this.showMoney = true;
             this.showMyTask = false;
           }
         },
         setting: {
-          show: true,
+          show: false,
           cb: () => {
             this.showSetting = true;
           }

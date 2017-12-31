@@ -14,10 +14,7 @@ import { RunnerInfoComponent } from './runner-info/runner-info';
 import { RunnerHeaderComponent } from './runner-header/runner-header';
 import { RunnerTimeComponent } from './runner-time/runner-time';
 import { RunnerRuleComponent } from './runner-rule/runner-rule';
-import { RunnerMyTasksComponent } from './runner-mytasks/runner-mytasks';
 import { RunnerTaskViewComponent } from './runner-task-view/runner-task-view';
-import { RunnerSettingComponent } from './runner-setting/runner-setting';
-import { RunnnerMoneyComponent } from './runner-money/runner-money';
 
 export const RunnerComponents = [
     RunnerOrderComponent,
@@ -27,10 +24,7 @@ export const RunnerComponents = [
     RunnerHeaderComponent,
     RunnerTimeComponent,
     RunnerRuleComponent,
-    RunnerMyTasksComponent,
-    RunnerTaskViewComponent,
-    RunnerSettingComponent,
-    RunnnerMoneyComponent
+    RunnerTaskViewComponent
 ];
 
 import { MeepoCoreServiceModule } from 'meepo-core';
