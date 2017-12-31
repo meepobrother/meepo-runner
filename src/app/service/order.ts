@@ -97,8 +97,6 @@ export class RunnerOrderService {
 
         let tianqi = new Widget('tianqi', '其他', '', 0, 0, '');
         this.tianqi$.next(tianqi);
-
-        console.log('runner order service sn is', this.sn);
     }
 
     addWeight(val: number = 0, price: number = 0) {

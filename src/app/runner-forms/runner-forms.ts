@@ -140,7 +140,6 @@ export class RunnerFormsComponent implements OnInit {
     }
 
     changeLength(e: any) {
-        console.log(this.app.tiji);
         this.app.tiji.length = e;
     }
 
@@ -153,7 +152,6 @@ export class RunnerFormsComponent implements OnInit {
     }
 
     imageUpload(e: any) {
-        console.log(e);
         this.app.images = e;
     }
 

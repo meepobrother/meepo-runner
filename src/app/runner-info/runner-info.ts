@@ -42,6 +42,7 @@ export class RunnerInfoComponent implements OnInit {
         tiji: {},
         number: 1,
         time: {},
+        action: 'task'
     };
     constructor(
         public app: RunnerAppService,
@@ -112,10 +113,15 @@ export class RunnerInfoComponent implements OnInit {
         // 支付
         if (this.app.agree) {
             this.order.start = this.app.start;
+            this.order.start['poiname'] = this.app.start.address + this.app.start.title
+            this.order.start = { ...this.order.start, ...this.app.start.point }
             this.order.end = this.app.end;
-            this.order.time = this.app.time;
-            this.order.weight = this.app.weight;
+            this.order.end['poiname'] = this.app.end.address + this.app.end.title
+            this.order.end = { ...this.order.end, ...this.app.end.point }
 
+            let time = this.app.time;
+            this.order.time = this.dateSortValue(time.year, time.hour, time.day, time.hour, time.minute);
+            this.order.weight = this.app.weight;
             this.order.baojia = this.app.baojia;
             this.order.payType = 'wechat';
             this.order.tiji = this.app.tiji;
@@ -124,8 +130,12 @@ export class RunnerInfoComponent implements OnInit {
             this.order.duration = '预计：' + (this.app.duration + this.app.price.duration) + '分钟';
             this.order.duration_value = this.app.duration;
             this.order.routeLen = this.app.distance;
-            
+            this.order.action = 'task';
             this.pay.pay$.next(this.order);
+            this.pay.paySuccess$.subscribe(res => {
+                // window.alert(JSON.stringify(res));
+                this.cancel();
+            });
         } else {
             this.core.showAlert({
                 title: '请注意',
@@ -133,5 +143,23 @@ export class RunnerInfoComponent implements OnInit {
             });
         }
     }
+
+    dateSortValue(year: number, month: number, day: number, hour: number = 0, minute: number = 0): number {
+        return parseInt(`1${this.fourDigit(year)}${this.twoDigit(month)}${this.twoDigit(day)}${this.twoDigit(hour)}${this.twoDigit(minute)}`, 10);
+    }
+
+    twoDigit(val: number): string {
+        return ('0' + (this.isPresent(val) ? Math.abs(val) : '0')).slice(-2);
+    }
+
+    threeDigit(val: number): string {
+        return ('00' + (this.isPresent(val) ? Math.abs(val) : '0')).slice(-3);
+    }
+
+    fourDigit(val: number): string {
+        return ('000' + (this.isPresent(val) ? Math.abs(val) : '0')).slice(-4);
+    }
+
+    isPresent(val: any): val is any { return val !== undefined && val !== null; }
 }
 

@@ -99,7 +99,7 @@ export class RunnerAppService {
             } = res;
             if (start.show && end.show) {
                 this.start$.next(this.start);
-                this.start$.next(this.end);
+                this.end$.next(this.end);
             } else {
                 this.bmap.clearOverlays();
                 this.distance = 0;
@@ -141,7 +141,6 @@ export class RunnerAppService {
                                 this.distance = 0;
                                 this.duration = 0;
                             }
-                            // this.btnTitle = `总路程:${this.distance}公里`;
                             this.getDistancePrice();
                             let arrPois = [];
                             if (routes && routes.steps) {
@@ -174,11 +173,11 @@ export class RunnerAppService {
         this.address.show$.subscribe(res => {
             let { isStart, data } = res;
             if (data) {
+                this.setAddress(data);
                 setTimeout(() => {
                     this.isStart = !isStart;
                 }, 300);
             }
-            this.setAddress(data);
             this.core.closeLoading();
         });
         this.bmap.movestart$.subscribe(res => {
@@ -388,7 +387,6 @@ export class RunnerAppService {
     autoTianqi() {
         if (this.price) {
             let { tianqiItems } = this.price;
-            console.log(this.price, tianqiItems);
             let tianqi$ = new Widget('tianqi', '其他', '', 0, 0, '');
             if (tianqiItems) {
                 tianqiItems.map(res => {

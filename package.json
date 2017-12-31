@@ -15,7 +15,7 @@
         "reload": "pm2 restart all && pm2 logs meepo",
         "delete": "pm2 delete all",
         "logs": "pm2 logs meepo",
-        "build2": "ng build --prod -d ../addons/imeepos_runnerpro/template/mobile/v3/"
+        "build2": "ng build --prod -d ../addons/imeepos_runner/template/mobile/v2/"
     },
     "repository": {
         "type": "git",
