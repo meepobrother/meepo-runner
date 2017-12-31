@@ -5,7 +5,7 @@ import { RunnerModule } from '../../src/app/app';
 import { MeepoBmapModule } from 'meepo-bmap';
 import { MeepoFormsModule } from 'meepo-forms';
 import { MeepoCoreModule } from 'meepo-core';
-
+import { PopoverModule } from 'meepo-popover';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { MeepoCoreModule } from 'meepo-core';
     RunnerModule,
     MeepoBmapModule,
     MeepoFormsModule,
-    MeepoCoreModule
+    MeepoCoreModule,
+    PopoverModule
   ],
   providers: [],
   bootstrap: [AppComponent]

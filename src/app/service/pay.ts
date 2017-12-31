@@ -30,9 +30,12 @@ export class RunnerPayService {
             this.postOrder(res);
         });
         this.postOrder$.subscribe((data: any) => {
-            this.opt = data.info.opt;
-            this.taskJson = data.info.taskJson
-            this.wxPay();
+            console.log(data);
+            if (data.code === 1) {
+                this.opt = data.info.opt;
+                this.taskJson = data.info.taskJson
+                this.wxPay();
+            }
         });
         this.wxPay$.subscribe((res: any) => {
             console.log('支付结果', res);
@@ -66,14 +69,26 @@ export class RunnerPayService {
         order.action = order.action || 'task';
         order.goods = order.goods || '发布任务';
         let url = this.core.murl('entry//open', { __do: 'paylog.postOrder', m: 'imeepos_runner' }, false);
-        this.axios.bpost(url, order).subscribe(res => {
-            this.postOrder$.next(res);
-        });
+        console.log('postOrder', url);
+        console.log('postOrder', order);
+        let post = this.axios.bpost(url, order)
+            .do(console.log)
+            .subscribe(res => {
+                this.postOrder$.next(res);
+                post.unsubscribe();
+            }, err => {
+                console.log(err);
+                this.axios.bpost(url, {}).subscribe(res => {
+                    console.log(res);
+                });
+                post.unsubscribe();
+            });
     }
 
     checkResult(): any {
         let post = { taskJson: this.taskJson };
         let url = this.core.murl('entry//open', { __do: 'paylog.checkResult', m: 'imeepos_runner' }, false);
+        console.log('checkResult', url);
         this.axios.bpost(url, post).subscribe(res => {
             this.checkResult$.next(res);
         });

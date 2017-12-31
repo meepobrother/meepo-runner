@@ -1,4 +1,4 @@
-<div class="meepo__bmap_order_info" style="bottom: 0px;top:0px;max-height: 100%;" *ngIf="showNotice" (click)="switchNotice()">
+<div class="meepo__bmap_order_info" style="bottom: 0px;top:0px;max-height: 100%;" [class.shown]="showNotice" (click)="switchNotice()">
     <div class="over_info_container">
         <xscroll [hasMore]="false" [hasRefresh]="false" [full]="true">
             <h2 class="title">免责声明</h2>

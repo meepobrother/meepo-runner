@@ -124,6 +124,7 @@ export class RunnerInfoComponent implements OnInit {
             this.order.duration = '预计：' + (this.app.duration + this.app.price.duration) + '分钟';
             this.order.duration_value = this.app.duration;
             this.order.routeLen = this.app.distance;
+            
             this.pay.pay$.next(this.order);
         } else {
             this.core.showAlert({

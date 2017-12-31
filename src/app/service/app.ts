@@ -193,11 +193,9 @@ export class RunnerAppService {
     hideTip() {
         this.tip$.next(false);
     }
-
     switchAgree() {
         this.agree = !this.agree;
     }
-
     private initNowTime() {
         let now = new Date();
         this.time = {

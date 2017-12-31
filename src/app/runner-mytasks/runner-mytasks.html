@@ -1,0 +1,11 @@
+<div class="mytask_tabs">
+    <div class="mytask_tabs-item" [class.on]="item.active" *ngFor="let item of tabs">{{item.title}}</div>
+</div>
+<xscroll style="position:relative;" [full]="true" [hasRefresh]="true" [hasMore]="true" (onMore)="onMore($event)" (onRefresh)="onRefresh($event)">
+    <div class="mytask_list" *ngFor="let task of items">
+        <runner-task-view [type]="task.type" [detail]="task"></runner-task-view>
+    </div>
+</xscroll>
+<div class="mytask_close" (click)="back()">
+    返回
+</div>

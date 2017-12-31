@@ -14,7 +14,10 @@ import { RunnerInfoComponent } from './runner-info/runner-info';
 import { RunnerHeaderComponent } from './runner-header/runner-header';
 import { RunnerTimeComponent } from './runner-time/runner-time';
 import { RunnerRuleComponent } from './runner-rule/runner-rule';
-
+import { RunnerMyTasksComponent } from './runner-mytasks/runner-mytasks';
+import { RunnerTaskViewComponent } from './runner-task-view/runner-task-view';
+import { RunnerSettingComponent } from './runner-setting/runner-setting';
+import { RunnnerMoneyComponent } from './runner-money/runner-money';
 
 export const RunnerComponents = [
     RunnerOrderComponent,
@@ -23,7 +26,11 @@ export const RunnerComponents = [
     RunnerInfoComponent,
     RunnerHeaderComponent,
     RunnerTimeComponent,
-    RunnerRuleComponent
+    RunnerRuleComponent,
+    RunnerMyTasksComponent,
+    RunnerTaskViewComponent,
+    RunnerSettingComponent,
+    RunnnerMoneyComponent
 ];
 
 import { MeepoCoreServiceModule } from 'meepo-core';
@@ -41,6 +48,8 @@ import { XscrollModule } from 'meepo-xscroll';
 import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/filter";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/do";
+
 
 @NgModule({
     declarations: [
