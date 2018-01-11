@@ -36,6 +36,8 @@ import { UaModule } from 'meepo-ua';
 import { MeepoBmapModule } from 'meepo-bmap'; 
 import { MeepoCoreModule } from 'meepo-core'; 
 import { PickerModule } from 'meepo-picker'; 
+import { MinirefreshModule } from 'meepo-minirefresh'; 
+
 import { XscrollModule } from 'meepo-xscroll'; 
 
 
@@ -53,7 +55,7 @@ import "rxjs/add/operator/do";
         CommonModule, MeepoCoreServiceModule, AxiosModule,
         MeepoFormsModule, UuidModule, JssdkModule, UaModule,
         MeepoBmapModule, MeepoCoreModule, PickerModule,
-        XscrollModule
+        XscrollModule, MinirefreshModule
     ],
     exports: [
         ...RunnerComponents

@@ -242,7 +242,9 @@ let globals = {
     "meepo-uuid": "meepo-uuid",
     "meepo-xscroll": "meepo-xscroll",
     "mobile-select": "mobile-select",
-    "meepo-picker": "meepo-picker"
+    "meepo-picker": "meepo-picker",
+    "meepo-minirefresh": "meepo-minirefresh"
+    
 };
 
 let plugins = [

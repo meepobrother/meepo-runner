@@ -278,7 +278,6 @@ export class RunnerAppService {
             this.startLoading = false;
         }
         this.core.showLoading({ show: true, full: false });
-        console.log(this.bmap);
         this.bmap && this.bmap.getCurrentPosition(false);
     }
 

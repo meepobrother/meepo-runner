@@ -158,4 +158,12 @@ export class RunnerFormsComponent implements OnInit {
     setMsg(e: any) {
         this.app.msg = e;
     }
+
+    up(e: any) {
+        e();
+    }
+
+    down(e: any) {
+        e();
+    }
 }
