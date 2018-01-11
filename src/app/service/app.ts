@@ -72,6 +72,7 @@ export class RunnerAppService {
         this.order.order$.debounceTime(100).subscribe(res => {
             let price = 0;
             res.map((item: Widget) => {
+                item.price = Math.floor(item.price * 100) / 100;
                 price += item.price * 1;
             });
             price = Math.floor(price * 100) / 100;
@@ -89,41 +90,59 @@ export class RunnerAppService {
         this.setting$.subscribe(res => {
             this.price$.next(res.setting);
             this.setting = res;
-            let {
-                adv, baojia,
-                btnTitle, end, start,
-                gonggao, image, money,
-                msg, price, priceStr,
-                rule, setting, tiji,
-                time, voice, weight
-            } = res;
-            if (start.show && end.show) {
-                this.start$.next(this.start);
-                this.end$.next(this.end);
+            if (!this.setting) {
+                this.core.showToast({
+                    title: '此类型未配置',
+                    message: '请联系管理员进行配置',
+                    show: true
+                });
             } else {
-                this.bmap.clearOverlays();
-                this.distance = 0;
-                this.duration = 0;
-                this.autoDistance();
-            }
-            if (time.show) {
-                if (!this.time) {
-                    this.initNowTime();
+                let {
+                    adv, baojia,
+                    btnTitle, end, start,
+                    gonggao, image, money,
+                    msg, price, priceStr,
+                    rule, setting, tiji,
+                    time, voice, weight
+                } = res;
+                if (start.show && end.show) {
+                    this.start$.next(this.start);
+                    this.end$.next(this.end);
+                } else {
+                    if (this.bmap) {
+                        this.bmap.clearOverlays();
+                    }
+                    this.distance = 0;
+                    this.duration = 0;
+                    this.autoDistance();
                 }
-                this.autoTime();
+                if (time.show) {
+                    if (!this.time) {
+                        this.initNowTime();
+                    }
+                    this.autoTime();
+                }
+                if (weight.show) {
+                    this.autoWeight();
+                }
+                if (baojia.show) {
+                    this.autoBaojia();
+                }
+                this.autoTianqi();
             }
-            if (weight.show) {
-                this.autoWeight();
-            }
-            if (baojia.show) {
-                this.autoBaojia();
-            }
-            this.autoTianqi();
         });
         this.price$.subscribe(res => {
             // 设置起步价
             this.price = res;
-            this.qibu(res);
+            if (this.price) {
+                this.qibu(res);
+            } else {
+                this.core.showToast({
+                    title: '没有设置价格策略',
+                    message: '请联系管理员进行配置',
+                    show: true
+                });
+            }
         });
 
         this.startEndCombineObserver =
@@ -131,7 +150,9 @@ export class RunnerAppService {
                 // 计算距离 路径规划
                 if (res[0].address && res[1].address) {
                     if (res[0].point === res[1].point) {
-                        this.bmap.clearOverlays();
+                        if (this.bmap) {
+                            this.bmap.clearOverlays();
+                        }
                         this.core.closeLoading();
                     } else {
                         let route$ = this.bmap.getRoutePlan(res[0], res[1]).subscribe(routes => {
@@ -173,12 +194,10 @@ export class RunnerAppService {
         this.address.show$.subscribe(res => {
             let { isStart, data } = res;
             if (data) {
+                this.isStart = isStart;
                 this.setAddress(data);
-                setTimeout(() => {
-                    this.isStart = !isStart;
-                }, 300);
+                this.core.closeLoading();
             }
-            this.core.closeLoading();
         });
         this.bmap.movestart$.subscribe(res => {
             this.loading = true;
@@ -259,7 +278,8 @@ export class RunnerAppService {
             this.startLoading = false;
         }
         this.core.showLoading({ show: true, full: false });
-        this.bmap.getCurrentPosition(false);
+        console.log(this.bmap);
+        this.bmap && this.bmap.getCurrentPosition(false);
     }
 
     _onStartAddressSelect() {

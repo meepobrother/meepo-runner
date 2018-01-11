@@ -230,6 +230,19 @@ let globals = {
     'rxjs/operators/takeUntil': 'Rx.Observable.prototype',
     'rxjs/operators/throttleTime': 'Rx.Observable.prototype',
     'rxjs/operators/tap': 'Rx.Observable.prototype',
+
+    'js-base64': 'js-base64',
+    "meepo-axios": "meepo-axios",
+    "meepo-base64": "meepo-base64",
+    "meepo-bmap": "meepo-bmap",
+    "meepo-core": "meepo-core",
+    "meepo-forms": "meepo-forms",
+    "meepo-jssdk": "meepo-jssdk",
+    "meepo-ua": "meepo-ua",
+    "meepo-uuid": "meepo-uuid",
+    "meepo-xscroll": "meepo-xscroll",
+    "mobile-select": "mobile-select",
+    "meepo-picker": "meepo-picker"
 };
 
 let plugins = [

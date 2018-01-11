@@ -64,9 +64,11 @@ export class RunnerInfoComponent implements OnInit {
         });
         this.app.next$.subscribe(res => {
             if (res === 'all') {
-                this.showInfo = false;
-                this.showOrderDetail = false;
-                this.cd.markForCheck();
+                if (this.showInfo || this.showOrderDetail) {
+                    this.showInfo = false;
+                    this.showOrderDetail = false;
+                    this.cd.markForCheck();
+                }
             } else if (res) {
                 this.showDetail();
             } else {
