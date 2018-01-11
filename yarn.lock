@@ -3091,7 +3091,7 @@ meepo-base@>=1.2.7, meepo-base@>=1.3.0:
     rxjs "^5.5.5"
     zone.js "0.8.4"
 
-meepo-bmap@>=3.8.6, meepo-bmap@^3.9.7:
+meepo-bmap@>=3.8.6, meepo-bmap@>=3.9.7:
   version "3.9.7"
   resolved "https://registry.yarnpkg.com/meepo-bmap/-/meepo-bmap-3.9.7.tgz#560b36806a310c799076e6c419a90f013a281ec4"
   dependencies:
