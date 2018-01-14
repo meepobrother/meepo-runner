@@ -59,7 +59,7 @@ import "rxjs/add/operator/do";
         MeepoFormsModule, UuidModule, JssdkModule, UaModule,
         MeepoBmapModule, MeepoCoreModule, PickerModule,
         XscrollModule, MinirefreshModule,
-        SocketModule.forChild({ name: runnerHeaderRoom }),
+        SocketModule.forRoot({ name: runnerHeaderRoom }),
     ],
     exports: [
         ...RunnerComponents,
