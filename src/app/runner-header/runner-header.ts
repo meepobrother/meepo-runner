@@ -36,6 +36,7 @@ export class RunnerHeaderComponent implements OnInit {
             switch (res.type) {
                 case RUNNER_HEADER_INIT:
                     this.headerItems = res.data;
+                    console.log(this.headerItems);
                     break;
                 default:
                     break;
@@ -51,9 +52,8 @@ export class RunnerHeaderComponent implements OnInit {
         this.event.emit(runnerHeaderRoom, data);
     }
 
-    ngOnInit() { 
-        console.log(this.headerItem);
-        console.log(this.headerItems);
+    ngOnInit() {
+
     }
 
     switchNotice() {
