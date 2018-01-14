@@ -31,6 +31,7 @@ export class RunnerHeaderComponent implements OnInit {
     constructor(
         public event: SocketService
     ) {
+        this.headerItems = [];
         this.on((res: any) => {
             switch (res.type) {
                 case RUNNER_HEADER_INIT:
@@ -39,7 +40,7 @@ export class RunnerHeaderComponent implements OnInit {
                 default:
                     break;
             }
-        })
+        });
     }
 
     on(fn: Function) {
