@@ -6,6 +6,8 @@ import { MeepoBmapModule } from 'meepo-bmap';
 import { MeepoFormsModule } from 'meepo-forms';
 import { MeepoCoreModule } from 'meepo-core';
 import { PopoverModule } from 'meepo-popover';
+import { SocketModule } from 'meepo-event';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { PopoverModule } from 'meepo-popover';
     MeepoBmapModule,
     MeepoFormsModule,
     MeepoCoreModule,
-    PopoverModule
+    PopoverModule,
+    SocketModule.forRoot({ name: 'root' })
   ],
   providers: [],
   bootstrap: [AppComponent]

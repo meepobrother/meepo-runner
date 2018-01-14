@@ -3155,6 +3155,14 @@ meepo-event@>=1.1.4:
     rxjs "^5.5.5"
     zone.js "0.8.4"
 
+meepo-event@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/meepo-event/-/meepo-event-1.2.9.tgz#274d301ad7c0e541d43198eb659aa92b1cb9b2c5"
+  dependencies:
+    meepo-core ">=3.2.8"
+    meepo-store ">=1.0.4"
+    meepo-uuid ">=1.1.2"
+
 meepo-forms@>=1.6.7:
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/meepo-forms/-/meepo-forms-1.7.8.tgz#2d5626485b748dda36e5e3190ca17324e2a5c6b3"
