@@ -62,7 +62,8 @@ import "rxjs/add/operator/do";
         SocketModule.forChild({ name: runnerHeaderRoom }),
     ],
     exports: [
-        ...RunnerComponents
+        ...RunnerComponents,
+        SocketModule
     ],
     providers: [
         RunnerAppService,
@@ -85,3 +86,4 @@ export {
     RUNNER_HEADER_CLICK_NAV_ITEM, RUNNER_HEADER_CLICK_RIGHT,
     RUNNER_HEADER_INIT, RunnerNavItem, RunnerHeaderItem
 } from './runner-header/runner-header';
+
