@@ -1,70 +1,68 @@
-<meepo-refresh-default (up)="up($event)" (down)="down($event)" [empty]="false">
-    <div class="main">
-        <form-row>
-            <form-select [items]="items$|async" (modelChange)="changeClass($event)">
-                类型
-            </form-select>
-        </form-row>
-        <form-row *ngIf="start?.show" [title]="start.title + ':' + app.start?.address +'  ' + app.start?.title">
-            <form-input [(model)]="app.start.detail" [tip]="start.detail.placeholder">
-                {{start.detail.title}}
+<div class="main">
+    <form-row>
+        <form-select [items]="items$|async" (modelChange)="changeClass($event)">
+            类型
+        </form-select>
+    </form-row>
+    <form-row *ngIf="start?.show" [title]="start.title + ':' + app.start?.address +'  ' + app.start?.title">
+        <form-input [(model)]="app.start.detail" [tip]="start.detail.placeholder">
+            {{start.detail.title}}
+        </form-input>
+        <form-input [(model)]="app.start.mobile" [tip]="start.mobile.placeholder">
+            {{start.mobile.title}}
+        </form-input>
+    </form-row>
+    <form-row *ngIf="end?.show" [title]="end.title + ':' + app.end?.address + '(' + app.end?.title + ')'">
+        <form-input [(model)]="app.end.detail" [tip]="end.detail.placeholder">
+            {{end.detail.title}}
+        </form-input>
+        <form-input [(model)]="app.end.mobile" [tip]="end.mobile.placeholder">
+            {{end.mobile.title}}
+        </form-input>
+    </form-row>
+    <form-row *ngIf="tiji?.show">
+        <form-switch (modelChange)="showTiji()">
+            {{tiji.placeholder}}
+        </form-switch>
+        <div *ngIf="tiji.detail">
+            <form-input (modelChange)="changeLength($event)" #weight type="number" tip="请输入长度">
+                长度
             </form-input>
-            <form-input [(model)]="app.start.mobile" [tip]="start.mobile.placeholder">
-                {{start.mobile.title}}
+            <form-input (modelChange)="changeWidth($event)" #weight type="number" tip="请输入宽度">
+                宽度
             </form-input>
-        </form-row>
-        <form-row *ngIf="end?.show" [title]="end.title + ':' + app.end?.address + '(' + app.end?.title + ')'">
-            <form-input [(model)]="app.end.detail" [tip]="end.detail.placeholder">
-                {{end.detail.title}}
+            <form-input (modelChange)="changeHeight($event)" #weight type="number" tip="请输入高度">
+                高度
             </form-input>
-            <form-input [(model)]="app.end.mobile" [tip]="end.mobile.placeholder">
-                {{end.mobile.title}}
-            </form-input>
-        </form-row>
-        <form-row *ngIf="tiji?.show">
-            <form-switch (modelChange)="showTiji()">
-                {{tiji.placeholder}}
-            </form-switch>
-            <div *ngIf="tiji.detail">
-                <form-input (modelChange)="changeLength($event)" #weight type="number" tip="请输入长度">
-                    长度
-                </form-input>
-                <form-input (modelChange)="changeWidth($event)" #weight type="number" tip="请输入宽度">
-                    宽度
-                </form-input>
-                <form-input (modelChange)="changeHeight($event)" #weight type="number" tip="请输入高度">
-                    高度
-                </form-input>
-            </div>
-        </form-row>
-        <form-row>
-            <form-tags (onSelect)="onSelect($event)" [items]="baojias">
-                {{baojia?.title}}
-            </form-tags>
-        </form-row>
-        <form-row *ngIf="image?.show">
-            <form-image (modelChange)="imageUpload($event)">
-                {{image?.title}}
-            </form-image>
-        </form-row>
-        <form-row>
-            <form-textarea (modelChange)="setMsg($event)" [tip]="msg?.placeholder">
-                {{msg?.title}}
-            </form-textarea>
-        </form-row>
+        </div>
+    </form-row>
+    <form-row>
+        <form-tags (onSelect)="onSelect($event)" [items]="baojias">
+            {{baojia?.title}}
+        </form-tags>
+    </form-row>
+    <form-row *ngIf="image?.show">
+        <form-image (modelChange)="imageUpload($event)">
+            {{image?.title}}
+        </form-image>
+    </form-row>
+    <form-row>
+        <form-textarea (modelChange)="setMsg($event)" [tip]="msg?.placeholder">
+            {{msg?.title}}
+        </form-textarea>
+    </form-row>
 
-        <form-row *ngIf="msg?.show">
-            <label for="weuiAgree" class="weui-agree">
-                <input id="weuiAgree" checked (change)="agree()" type="checkbox" class="weui-agree__checkbox">
-                <span class="weui-agree__text">
-                    {{rule?.placeholder}}
-                    <a href="javascript:void(0);" (click)="showTip()">《{{rule?.title}}》</a>
-                </span>
-            </label>
-        </form-row>
+    <form-row *ngIf="msg?.show">
+        <label for="weuiAgree" class="weui-agree">
+            <input id="weuiAgree" checked (change)="agree()" type="checkbox" class="weui-agree__checkbox">
+            <span class="weui-agree__text">
+                {{rule?.placeholder}}
+                <a href="javascript:void(0);" (click)="showTip()">《{{rule?.title}}》</a>
+            </span>
+        </label>
+    </form-row>
 
-        <form-row>
-            <ng-content></ng-content>
-        </form-row>
-    </div>
-</meepo-refresh-default>
+    <form-row>
+        <ng-content></ng-content>
+    </form-row>
+</div>
