@@ -83,5 +83,5 @@ export {
     RunnerHeaderComponent, runnerHeaderRoom,
     RUNNER_HEADER_CLICK_HEADER_ITEM, RUNNER_HEADER_CLICK_LEFT,
     RUNNER_HEADER_CLICK_NAV_ITEM, RUNNER_HEADER_CLICK_RIGHT,
-    RUNNER_HEADER_INIT
+    RUNNER_HEADER_INIT, RunnerNavItem, RunnerHeaderItem
 } from './runner-header/runner-header';
