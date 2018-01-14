@@ -51,7 +51,10 @@ export class RunnerHeaderComponent implements OnInit {
         this.event.emit(runnerHeaderRoom, data);
     }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        console.log(this.headerItem);
+        console.log(this.headerItems);
+    }
 
     switchNotice() {
         this.emit({
