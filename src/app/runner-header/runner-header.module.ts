@@ -6,7 +6,7 @@ import { runnerHeaderRoom, RunnerHeaderComponent } from './runner-header';
 
 @NgModule({
     imports: [
-        SocketModule.forRoot({ name: runnerHeaderRoom }),
+        SocketModule.forChild({ name: runnerHeaderRoom }),
         CommonModule
     ],
     exports: [
