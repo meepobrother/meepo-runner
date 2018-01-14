@@ -16,6 +16,8 @@ export interface RunnerNavItem {
     active: boolean;
 }
 export interface RunnerHeaderItem {
+    title?: string;
+    active?: boolean;
     items?: RunnerNavItem[]
 }
 

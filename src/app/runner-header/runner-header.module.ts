@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { SocketModule } from 'meepo-event';
 import { runnerHeaderRoom, RunnerHeaderComponent } from './runner-header';
+
 @NgModule({
     imports: [
-        SocketModule.forChild({ name: runnerHeaderRoom }),
+        SocketModule.forRoot({ name: runnerHeaderRoom }),
         CommonModule
     ],
     exports: [
@@ -14,7 +15,7 @@ import { runnerHeaderRoom, RunnerHeaderComponent } from './runner-header';
     declarations: [
         RunnerHeaderComponent
     ],
-    providers: [],
+    providers: []
 })
 export class RunnerHeaderModule { }
 
