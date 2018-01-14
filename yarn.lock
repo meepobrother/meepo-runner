@@ -3305,9 +3305,9 @@ meepo-event@>=1.1.8, meepo-event@>=1.2.2, meepo-event@^1.2.0, meepo-event@^1.2.4
     meepo-store ">=1.0.4"
     meepo-uuid ">=1.1.2"
 
-meepo-event@>=1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/meepo-event/-/meepo-event-1.3.0.tgz#a577aefd9bc10f96a6912ee44f6b6a2e2714c080"
+meepo-event@>=1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/meepo-event/-/meepo-event-1.3.1.tgz#f700a609ae5c675bf7f2f5ca8ebdd0ec605c1caa"
   dependencies:
     meepo-core ">=3.2.8"
     meepo-store ">=1.0.4"

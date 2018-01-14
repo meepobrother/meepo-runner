@@ -48,8 +48,6 @@ import "rxjs/add/operator/filter";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 
-
-
 @NgModule({
     declarations: [
         ...RunnerComponents
