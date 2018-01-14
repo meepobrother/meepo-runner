@@ -10,3 +10,4 @@ export const RUNNER_HEADER_CLICK_HEADER_ITEM = 'RUNNER_HEADER_CLICK_HEADER_ITEM'
 
 ```
 
+- **runnerHeaderRoom** 房间号
