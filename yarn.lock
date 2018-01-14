@@ -3297,9 +3297,17 @@ meepo-empty@>=1.1.5:
     rxjs "^5.5.5"
     zone.js "0.8.4"
 
-meepo-event@>=1.1.8, meepo-event@>=1.2.2, meepo-event@>=1.2.9, meepo-event@^1.2.0, meepo-event@^1.2.4, meepo-event@^1.2.9:
+meepo-event@>=1.1.8, meepo-event@>=1.2.2, meepo-event@^1.2.0, meepo-event@^1.2.4, meepo-event@^1.2.9:
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/meepo-event/-/meepo-event-1.2.9.tgz#274d301ad7c0e541d43198eb659aa92b1cb9b2c5"
+  dependencies:
+    meepo-core ">=3.2.8"
+    meepo-store ">=1.0.4"
+    meepo-uuid ">=1.1.2"
+
+meepo-event@>=1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/meepo-event/-/meepo-event-1.3.0.tgz#a577aefd9bc10f96a6912ee44f6b6a2e2714c080"
   dependencies:
     meepo-core ">=3.2.8"
     meepo-store ">=1.0.4"
