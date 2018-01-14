@@ -11,7 +11,6 @@ import { RunnerOrderComponent } from './runner-order/runner-order';
 import { RunnerFormsComponent } from './runner-forms/runner-forms';
 import { RunnerMapComponent } from './runner-map/runner-map';
 import { RunnerInfoComponent } from './runner-info/runner-info';
-import { RunnerHeaderComponent, runnerHeaderRoom } from './runner-header/runner-header';
 import { RunnerTimeComponent } from './runner-time/runner-time';
 import { RunnerRuleComponent } from './runner-rule/runner-rule';
 import { RunnerTaskViewComponent } from './runner-task-view/runner-task-view';
@@ -21,10 +20,14 @@ export const RunnerComponents = [
     RunnerFormsComponent,
     RunnerMapComponent,
     RunnerInfoComponent,
-    RunnerHeaderComponent,
     RunnerTimeComponent,
     RunnerRuleComponent,
     RunnerTaskViewComponent
+];
+
+import { RunnerHeaderModule } from './runner-header/runner-header.module';
+export const RunnerModules = [
+    RunnerHeaderModule
 ];
 
 import { MeepoCoreServiceModule } from 'meepo-core';
@@ -57,11 +60,11 @@ import "rxjs/add/operator/do";
         MeepoFormsModule, UuidModule, JssdkModule, UaModule,
         MeepoBmapModule, MeepoCoreModule, PickerModule,
         XscrollModule, MinirefreshModule,
-        SocketModule.forRoot({ name: runnerHeaderRoom }),
+        ...RunnerModules
     ],
     exports: [
         ...RunnerComponents,
-        SocketModule
+        ...RunnerModules
     ],
     providers: [
         RunnerAppService,
@@ -82,6 +85,7 @@ export {
     RunnerHeaderComponent, runnerHeaderRoom,
     RUNNER_HEADER_CLICK_HEADER_ITEM, RUNNER_HEADER_CLICK_LEFT,
     RUNNER_HEADER_CLICK_NAV_ITEM, RUNNER_HEADER_CLICK_RIGHT,
-    RUNNER_HEADER_INIT, RunnerNavItem, RunnerHeaderItem
-} from './runner-header/runner-header';
+    RUNNER_HEADER_INIT, RunnerNavItem, RunnerHeaderItem,
+    RunnerHeaderModule
+} from './runner-header/runner-header.module';
 
