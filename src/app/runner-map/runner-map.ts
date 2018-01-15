@@ -12,6 +12,9 @@ export const RUNNER_MAP_TIME_PICKER = 'RUNNER_MAP_TIME_PICKER';
 export const RUNNER_MAP_SELECT_START_ADDRESS = 'RUNNER_MAP_SELECT_START_ADDRESS';
 export const RUNNER_MAP_SELECT_END_ADDRESS = 'RUNNER_MAP_SELECT_END_ADDRESS';
 export const RUNNER_MAP_MY_LOCATION = 'RUNNER_MAP_MY_LOCATION';
+export const RUNNER_MAP_INIT = 'RUNNER_MAP_INIT';
+export const RUNNER_MAP_SET_START_LOAING = 'RUNNER_MAP_SET_START_LOAING';
+export const RUNNER_MAP_SET_END_LOAING = 'RUNNER_MAP_SET_END_LOAING';
 
 import { SocketService } from 'meepo-event';
 @Component({
@@ -48,9 +51,25 @@ export class RunnerMapComponent {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
                     this.form.get('start').setValue(res.data);
+                    this.startLoading = false;
+                    this.start = res.data;
                     break;
                 case RUNNER_MAP_SET_END:
                     this.form.get('end').setValue(res.data);
+                    this.endLoading = false;
+                    this.end = res.data;
+                    break;
+                case RUNNER_MAP_SET_START_LOAING:
+                    this.startLoading = res.data;
+                    break;
+                case RUNNER_MAP_SET_END_LOAING:
+                    this.endLoading = res.data;
+                    break;
+                case RUNNER_MAP_INIT:
+                    let { startSetting, endSetting, weightSetting } = res.data;
+                    this.startSetting = startSetting;
+                    this.endSetting = endSetting;
+                    this.weightSetting = weightSetting;
                     break;
                 default:
                     break;
