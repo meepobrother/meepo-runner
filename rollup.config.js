@@ -243,7 +243,8 @@ let globals = {
     "meepo-xscroll": "meepo-xscroll",
     "mobile-select": "mobile-select",
     "meepo-picker": "meepo-picker",
-    "meepo-minirefresh": "meepo-minirefresh"
+    "meepo-minirefresh": "meepo-minirefresh",
+    'angular-web-storage': 'angular-web-storage'
     
 };
 

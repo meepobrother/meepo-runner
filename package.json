@@ -1,13 +1,13 @@
 {
     "name": "meepo-runner",
-    "version": "2.2.4",
+    "version": "2.2.5",
     "description": "runner for angular",
     "main": "./bundles/meepo.umd.js",
     "module": "./esm5/meepo.js",
     "es2015": "./esm2015/meepo.js",
     "typings": "./meepo.d.ts",
     "scripts": {
-        "build": "yarn && yarn upgrade && bash ./build.sh",
+        "build": "bash ./build.sh",
         "git": "git add . && git commit -m 'save to back' && git push origin master",
         "test": "node index.js",
         "demo": "ng serve --port 4018 --open",
@@ -53,6 +53,7 @@
         "zone.js": "0.8.4"
     },
     "dependencies": {
+        "angular-web-storage": "latest",
         "meepo-axios": "latest",
         "meepo-base64": "latest",
         "meepo-bmap": "latest",
