@@ -20,7 +20,6 @@ import { SocketService } from 'meepo-event';
 @Component({
     selector: 'runner-map',
     templateUrl: './runner-map.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./runner-map.scss']
 })
 export class RunnerMapComponent {
