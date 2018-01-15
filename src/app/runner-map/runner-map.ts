@@ -3,7 +3,7 @@ import {
     EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy,
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 export const runnerMapRoom = 'runnerMapRoom';
@@ -45,10 +45,10 @@ export class RunnerMapComponent implements OnInit {
         public cd: ChangeDetectorRef
     ) {
         this.form = this.fb.group({
-            start: [''],
-            end: [''],
-            time: [''],
-            weight: ['']
+            start: ['', [Validators.required]],
+            end: ['', [Validators.required]],
+            time: ['', [Validators.required]],
+            weight: ['', [Validators.required]]
         });
         this.form.valueChanges.subscribe(res => {
             this.emit({
@@ -63,21 +63,10 @@ export class RunnerMapComponent implements OnInit {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
                     this.form.get('start').setValue(res.data);
-                    setTimeout(() => {
-                        this.startLoading = false;
-                        this.start = res.data;
-                        console.log(this);
-                        this.cd.markForCheck();
-                    }, 0);
+                    console.log(this.form.get('start').valid);
                     break;
                 case RUNNER_MAP_SET_END:
                     this.form.get('end').setValue(res.data);
-                    setTimeout(() => {
-                        this.endLoading = false;
-                        this.end = res.data;
-                        console.log(this);
-                        this.cd.markForCheck();
-                    }, 0);
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
                     this.startLoading = res.data;
