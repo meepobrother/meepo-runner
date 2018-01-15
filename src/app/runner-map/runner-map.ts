@@ -1,128 +1,92 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { BmapAddressSelectService, BmapService } from 'meepo-bmap';
-import { UuidService } from 'meepo-uuid';
-import { CoreService } from 'meepo-core';
-
-import { RunnerAppService } from '../service/app';
-import { RunnerOrderService } from '../service/order';
 import { Subject } from 'rxjs/Subject';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
+
+export const runnerMapRoom = 'runnerMapRoom';
+export const RUNNER_MAP_FINISH = 'RUNNER_MAP_FINISH';
+export const RUNNER_MAP_SET_HEIGHT = 'RUNNER_MAP_SET_HEIGHT';
+export const RUNNER_MAP_SET_START = 'RUNNER_MAP_SET_START';
+export const RUNNER_MAP_SET_END = 'RUNNER_MAP_SET_END';
+export const RUNNER_MAP_TIME_PICKER = 'RUNNER_MAP_TIME_PICKER';
+export const RUNNER_MAP_SELECT_START_ADDRESS = 'RUNNER_MAP_SELECT_START_ADDRESS';
+export const RUNNER_MAP_SELECT_END_ADDRESS = 'RUNNER_MAP_SELECT_END_ADDRESS';
+export const RUNNER_MAP_MY_LOCATION = 'RUNNER_MAP_MY_LOCATION';
+
+import { SocketService } from 'meepo-event';
 @Component({
     selector: 'runner-map',
     templateUrl: './runner-map.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./runner-map.scss']
 })
-export class RunnerMapComponent implements OnInit {
-    @Input() startLoading: boolean = true;
-    @Input() endLoading: boolean = true;
-    @Input() loading: boolean = true;
-    isStart: boolean = true;
-    @Input() sn: string;
-
-    // 预约时间
-    time: any;
-    // 导航时间
-    duration: any;
-    // 路程
-    distance: any;
-
-    endSetting: any;
+export class RunnerMapComponent {
+    startLoading: boolean = true;
     startSetting: any;
-    timeSetting: any;
+    start: any;
+
+    endLoading: boolean = true;
+    endSetting: any;
+    end: any;
+
     weightSetting: any;
-    btnTitle: any;
 
-    startEndCombineObserver: any;
-    total: any = 0;
+    form: FormGroup;
+
+    btnTitle: string;
     constructor(
-        public address: BmapAddressSelectService,
-        public uuid: UuidService,
-        public app: RunnerAppService,
-        public order: RunnerOrderService,
-        public cd: ChangeDetectorRef,
-        public bmap: BmapService,
-        public core: CoreService
+        public event: SocketService,
+        public fb: FormBuilder
     ) {
-        this.app.total$.subscribe(res => {
-            this.total = res;
-            this.cd.detectChanges();
+        this.form = this.fb.group({
+            start: [{}],
+            end: [{}],
+            time: [{}],
+            weight: ['']
         });
-        this.app.setting$.subscribe(res => {
-            let {
-                end, start, time,
-                btnTitle, weight
-            } = res;
-            this.startSetting = start;
-            this.endSetting = end;
-            this.weightSetting = weight;
-            this.timeSetting = time;
-            this.btnTitle = btnTitle;
-            this.cd.detectChanges();
-        });
-
-        this.app.start$.subscribe(res => {
-            if (res.address) {
-                this.startLoading = false;
-                this.cd.detectChanges();
+        this.on((res: any) => {
+            switch (res.type) {
+                case RUNNER_MAP_SET_START:
+                    this.form.get('start').setValue(res.data);
+                    break;
+                case RUNNER_MAP_SET_END:
+                    this.form.get('end').setValue(res.data);
+                    break;
+                default:
+                    break;
             }
-        });
-        this.app.end$.subscribe(res => {
-            if (res.address) {
-                this.endLoading = false;
-                this.cd.detectChanges();
-            }
-        });
+        })
     }
 
-    ngOnInit() {
-        this.sn = this.sn || this.uuid.v1();
-        this.app.sn = this.sn;
+    private on(fn: Function) {
+        this.event.on(runnerMapRoom, fn);
     }
 
-    check() {
-        if (this.startSetting.show) {
-            if (!this.app.start.address) {
-                this.core.showToast({
-                    show: true,
-                    title: '请选择' + this.startSetting.title,
-                    message: this.startSetting.placeholder,
-                    type: 'warning'
-                });
-                return false;
-            }
-        }
-        if (this.endSetting.show) {
-            if (!this.app.end.address) {
-                this.core.showToast({
-                    show: true,
-                    title: '请选择' + this.endSetting.title,
-                    message: this.endSetting.placeholder,
-                    type: 'warning'
-                });
-                return false;
-            }
-        }
-        if (this.weightSetting.show) {
-            if (!this.app.weight) {
-                this.core.showToast({
-                    show: true,
-                    title: '请输入' + this.weightSetting.title,
-                    message: this.weightSetting.placeholder,
-                    type: 'warning'
-                });
-                return false;
-            }
-        }
-        return true;
+    private emit(data: any) {
+        this.event.emit(runnerMapRoom, data);
     }
+
+    onStartAddressSelect() {
+        this.emit({ type: RUNNER_MAP_SELECT_START_ADDRESS, data: '' });
+    }
+
+    onEndAddressSelect() {
+        this.emit({ type: RUNNER_MAP_SELECT_END_ADDRESS, data: '' });
+    }
+
     finish() {
-        if (this.check()) {
-            this.app.next$.next(true);
-        }
+        this.emit({ type: RUNNER_MAP_FINISH, data: '' });
     }
 
     setWeight(e: any) {
-        this.app.setWeight(e.target.value);
+        this.emit({ type: RUNNER_MAP_SET_HEIGHT, data: '' });
+    }
+
+    onTimePicker(e: any) {
+        this.emit({ type: RUNNER_MAP_TIME_PICKER, data: e });
+    }
+
+    myLocation(e: any, isStart: boolean = true) {
+        this.emit({ type: RUNNER_MAP_MY_LOCATION, data: isStart });
     }
 }

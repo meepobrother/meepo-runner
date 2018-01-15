@@ -80,7 +80,7 @@ export class RunnerAppService {
         });
         this.active$.subscribe(res => {
             let { baojias } = res;
-            baojias.map(res => {
+            baojias && baojias.map(res => {
                 if (res.active) {
                     this.baojia = res;
                 }
@@ -88,47 +88,49 @@ export class RunnerAppService {
             this.setting$.next(res.setting);
         });
         this.setting$.subscribe(res => {
-            this.price$.next(res.setting);
-            this.setting = res;
-            if (!this.setting) {
-                this.core.showToast({
-                    title: '此类型未配置',
-                    message: '请联系管理员进行配置',
-                    show: true
-                });
-            } else {
-                let {
-                    adv, baojia,
-                    btnTitle, end, start,
-                    gonggao, image, money,
-                    msg, price, priceStr,
-                    rule, setting, tiji,
-                    time, voice, weight
-                } = res;
-                if (start.show && end.show) {
-                    this.start$.next(this.start);
-                    this.end$.next(this.end);
+            if (res && res.setting) {
+                this.price$.next(res.setting);
+                this.setting = res;
+                if (!this.setting) {
+                    this.core.showToast({
+                        title: '此类型未配置',
+                        message: '请联系管理员进行配置',
+                        show: true
+                    });
                 } else {
-                    if (this.bmap) {
-                        this.bmap.clearOverlays();
+                    let {
+                    adv, baojia,
+                        btnTitle, end, start,
+                        gonggao, image, money,
+                        msg, price, priceStr,
+                        rule, setting, tiji,
+                        time, voice, weight
+                } = res;
+                    if (start.show && end.show) {
+                        this.start$.next(this.start);
+                        this.end$.next(this.end);
+                    } else {
+                        if (this.bmap) {
+                            this.bmap.clearOverlays();
+                        }
+                        this.distance = 0;
+                        this.duration = 0;
+                        this.autoDistance();
                     }
-                    this.distance = 0;
-                    this.duration = 0;
-                    this.autoDistance();
-                }
-                if (time.show) {
-                    if (!this.time) {
-                        this.initNowTime();
+                    if (time.show) {
+                        if (!this.time) {
+                            this.initNowTime();
+                        }
+                        this.autoTime();
                     }
-                    this.autoTime();
+                    if (weight.show) {
+                        this.autoWeight();
+                    }
+                    if (baojia.show) {
+                        this.autoBaojia();
+                    }
+                    this.autoTianqi();
                 }
-                if (weight.show) {
-                    this.autoWeight();
-                }
-                if (baojia.show) {
-                    this.autoBaojia();
-                }
-                this.autoTianqi();
             }
         });
         this.price$.subscribe(res => {

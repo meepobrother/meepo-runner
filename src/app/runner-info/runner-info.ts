@@ -60,7 +60,7 @@ export class RunnerInfoComponent implements OnInit {
             this.order.type = res.code;
         });
         this.app.setting$.subscribe(res => {
-            this.btnTitle = res.btnTitle;
+            this.btnTitle = res && res.btnTitle ? res.btnTitle : this.btnTitle;
         });
         this.app.next$.subscribe(res => {
             if (res === 'all') {

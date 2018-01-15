@@ -1,23 +1,23 @@
-<div class="meepo__map_footer" #footer>
+<div class="meepo__map_footer" [formGroup]="form">
     <div class="footer_container">
-        <runner-time (onPicker)="app.onTimePicker($event)"></runner-time>
-        <div class="address_item" *ngIf="startSetting?.show" (click)="app._onStartAddressSelect()">
+        <time-picker formControlName="time"></time-picker>
+        <div class="address_item" *ngIf="startSetting?.show" (click)="onStartAddressSelect()">
             <span class="home_unlock_to_success_17"></span>
             <input class="weui-input" *ngIf="startLoading" type="text" readonly disabled placeholder="正在获取位置...">
             <input class="weui-input" *ngIf="!startLoading" type="text" readonly disabled [attr.value]="app.start.address + (app.start.title ? '('+ app.start.title +')' : '')">
-            <span class="bt_ic_postal_code" (click)="app.myLocation($event,true)"></span>
+            <span class="bt_ic_postal_code" (click)="myLocation($event, true)"></span>
         </div>
         <div class="address_item_divider"></div>
-        <div class="address_item" *ngIf="endSetting?.show" (click)="app._onEndAddressSelect()">
+        <div class="address_item" *ngIf="endSetting?.show" (click)="onEndAddressSelect()">
             <span class="bg_redpacket_marker"></span>
             <input class="weui-input" *ngIf="endLoading" type="text" readonly disabled placeholder="请选择位置...">
-            <input class="weui-input" *ngIf="!endLoading" type="text" readonly disabled [attr.value]="app.end.address + (app.end.title ? ('('+ app.end.title + ')') : '')">
-            <span class="bt_ic_postal_code" (click)="app.myLocation($event,false)"></span>
+            <input class="weui-input" *ngIf="!endLoading" type="text" readonly disabled [attr.value]="end.address + (end.title ? ('('+ end.title + ')') : '')">
+            <span class="bt_ic_postal_code" (click)="myLocation($event, false)"></span>
         </div>
         <div class="address_item_divider"></div>
         <div class="address_item" *ngIf="weightSetting?.show">
-            <input (keyup)="setWeight($event)" class="weui-input" type="number" [attr.placeholder]="weightSetting.placeholder">
-        </div>        
+            <input formControlName="weight" class="weui-input" type="number" [attr.placeholder]="weightSetting.placeholder">
+        </div>
     </div>
     <div class="footer-btn">
         <a href="javascript:;" (click)="finish()" class="weui-btn weui-btn_primary">{{btnTitle || '立即下单'}}({{total}}元)</a>
