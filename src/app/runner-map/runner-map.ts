@@ -1,6 +1,6 @@
 import {
     Component, OnInit, Input, Output,
-    EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy
+    EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy,
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -25,7 +25,7 @@ import { SocketService } from 'meepo-event';
     templateUrl: './runner-map.html',
     styleUrls: ['./runner-map.scss']
 })
-export class RunnerMapComponent {
+export class RunnerMapComponent implements OnInit {
     startLoading: boolean = true;
     startSetting: any;
     @Input() start: any;
@@ -50,6 +50,15 @@ export class RunnerMapComponent {
             time: [''],
             weight: ['']
         });
+        this.form.valueChanges.subscribe(res => {
+            this.emit({
+                type: RUNNER_MAP_VALUE_CHANGES,
+                data: res
+            });
+        });
+    }
+
+    ngOnInit() {
         this.on((res: any) => {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
@@ -58,6 +67,7 @@ export class RunnerMapComponent {
                         this.startLoading = false;
                         this.start = res.data;
                         console.log(this);
+                        this.cd.markForCheck();
                     }, 0);
                     break;
                 case RUNNER_MAP_SET_END:
@@ -66,6 +76,7 @@ export class RunnerMapComponent {
                         this.endLoading = false;
                         this.end = res.data;
                         console.log(this);
+                        this.cd.markForCheck();
                     }, 0);
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
@@ -83,13 +94,6 @@ export class RunnerMapComponent {
                 default:
                     break;
             }
-        });
-
-        this.form.valueChanges.subscribe(res => {
-            this.emit({
-                type: RUNNER_MAP_VALUE_CHANGES,
-                data: res
-            });
         });
     }
 
