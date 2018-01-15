@@ -1,6 +1,6 @@
 {
     "name": "meepo-runner",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "description": "runner for angular",
     "main": "./bundles/meepo.umd.js",
     "module": "./esm5/meepo.js",
@@ -53,17 +53,17 @@
         "zone.js": "0.8.4"
     },
     "dependencies": {
-        "angular-web-storage": "latest",
-        "meepo-axios": "latest",
-        "meepo-base64": "latest",
-        "meepo-bmap": "latest",
-        "meepo-core": "latest",
-        "meepo-event": "latest",
-        "meepo-forms": "latest",
-        "meepo-jssdk": "latest",
-        "meepo-ua": "latest",
-        "meepo-uuid": "latest",
-        "meepo-xscroll": "latest",
-        "mobile-select": "latest"
+        "angular-web-storage": "*",
+        "meepo-axios": "*",
+        "meepo-base64": "*",
+        "meepo-bmap": "*",
+        "meepo-core": "*",
+        "meepo-event": "*",
+        "meepo-forms": "*",
+        "meepo-jssdk": "*",
+        "meepo-ua": "*",
+        "meepo-uuid": "*",
+        "meepo-xscroll": "*",
+        "mobile-select": "*"
     }
 }
