@@ -57,7 +57,7 @@ export class RunnerMapComponent {
                     setTimeout(() => {
                         this.startLoading = false;
                         this.start = res.data;
-                        console.log(this.start);
+                        console.log(this);
                     }, 0);
                     break;
                 case RUNNER_MAP_SET_END:
@@ -65,7 +65,7 @@ export class RunnerMapComponent {
                     setTimeout(() => {
                         this.endLoading = false;
                         this.end = res.data;
-                        console.log(this.end);
+                        console.log(this);
                     }, 0);
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
