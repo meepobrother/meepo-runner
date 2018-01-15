@@ -38,7 +38,14 @@ export class RunnerHeaderComponent implements OnInit {
             switch (res.type) {
                 case RUNNER_HEADER_INIT:
                     this.headerItems = res.data;
-                    console.log(this.headerItems);
+                    if (this.headerItems.length > 0) {
+                        this.headerItem = this.headerItems[0];
+                    }
+                    this.headerItems.map(res => {
+                        if (res.active) {
+                            this.headerItem = res;
+                        }
+                    });
                     break;
                 default:
                     break;
