@@ -1,7 +1,7 @@
 import {
     Component, OnInit, Input, Output,
     EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy,
-    ViewEncapsulation
+    ViewEncapsulation, OnDestroy
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -29,7 +29,7 @@ import { SocketService } from 'meepo-event';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RunnerMapComponent implements OnInit {
+export class RunnerMapComponent implements OnInit, OnDestroy {
     startLoading: boolean = true;
     startSetting: any;
     @Input() start: any;
@@ -63,37 +63,42 @@ export class RunnerMapComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.cd.reattach();
         this.on((res: any) => {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
                     this.form.get('start').setValue(res.data);
                     console.log(this.form.get('start').valid);
                     console.log(this.form.get('start').value);
-                    this.cd.markForCheck();
+                    this.cd.detectChanges();
                     break;
                 case RUNNER_MAP_SET_END:
                     this.form.get('end').setValue(res.data);
-                    this.cd.markForCheck();
+                    this.cd.detectChanges();
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
                     this.startLoading = res.data;
-                    this.cd.markForCheck();
+                    this.cd.detectChanges();
                     break;
                 case RUNNER_MAP_SET_END_LOAING:
                     this.endLoading = res.data;
-                    this.cd.markForCheck();
+                    this.cd.detectChanges();
                     break;
                 case RUNNER_MAP_INIT:
                     let { setting } = res.data;
                     this.startSetting = setting.start;
                     this.endSetting = setting.end;
                     this.weightSetting = setting.weight;
-                    this.cd.markForCheck();
+                    this.cd.detectChanges();
                     break;
                 default:
                     break;
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.cd.detach();
     }
 
     private on(fn: Function) {
