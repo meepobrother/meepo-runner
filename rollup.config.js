@@ -233,6 +233,7 @@ let globals = {
 
     'js-base64': 'js-base64',
     "meepo-axios": "meepo-axios",
+    "meepo-event": "meepo-event",
     "meepo-base64": "meepo-base64",
     "meepo-bmap": "meepo-bmap",
     "meepo-core": "meepo-core",
