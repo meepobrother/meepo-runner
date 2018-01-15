@@ -87,3 +87,16 @@ export {
     RunnerHeaderModule
 } from './runner-header/runner-header.module';
 
+export { RunnerMapModule } from './runner-map/runner-map.module';
+export {
+    RUNNER_MAP_FINISH,
+    RUNNER_MAP_MY_LOCATION,
+    RUNNER_MAP_SELECT_END_ADDRESS,
+    RUNNER_MAP_SELECT_START_ADDRESS,
+    RUNNER_MAP_SET_END,
+    RUNNER_MAP_SET_HEIGHT,
+    RUNNER_MAP_SET_START,
+    RUNNER_MAP_TIME_PICKER,
+    RunnerMapComponent,
+    runnerMapRoom
+} from './runner-map/runner-map';
