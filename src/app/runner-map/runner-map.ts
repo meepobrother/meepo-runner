@@ -67,10 +67,10 @@ export class RunnerMapComponent {
                     this.endLoading = res.data;
                     break;
                 case RUNNER_MAP_INIT:
-                    let { startSetting, endSetting, weightSetting } = res.data;
-                    this.startSetting = startSetting;
-                    this.endSetting = endSetting;
-                    this.weightSetting = weightSetting;
+                    let { setting } = res.data;
+                    this.startSetting = setting.start;
+                    this.endSetting = setting.end;
+                    this.weightSetting = setting.weight;
                     break;
                 default:
                     break;
