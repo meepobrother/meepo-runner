@@ -75,15 +75,18 @@ export class RunnerMapComponent implements OnInit {
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
                     this.startLoading = res.data;
+                    this.cd.markForCheck();
                     break;
                 case RUNNER_MAP_SET_END_LOAING:
                     this.endLoading = res.data;
+                    this.cd.markForCheck();
                     break;
                 case RUNNER_MAP_INIT:
                     let { setting } = res.data;
                     this.startSetting = setting.start;
                     this.endSetting = setting.end;
                     this.weightSetting = setting.weight;
+                    this.cd.markForCheck();
                     break;
                 default:
                     break;
