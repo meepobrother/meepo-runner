@@ -1,6 +1,7 @@
 import {
     Component, OnInit, Input, Output,
     EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy,
+    ViewEncapsulation
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -20,10 +21,13 @@ export const RUNNER_MAP_SET_END_LOAING = 'RUNNER_MAP_SET_END_LOAING';
 export const RUNNER_MAP_VALUE_CHANGES = 'RUNNER_MAP_VALUE_CHANGES';
 
 import { SocketService } from 'meepo-event';
+
 @Component({
     selector: 'runner-map',
     templateUrl: './runner-map.html',
-    styleUrls: ['./runner-map.scss']
+    styleUrls: ['./runner-map.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RunnerMapComponent implements OnInit {
     startLoading: boolean = true;
@@ -63,10 +67,11 @@ export class RunnerMapComponent implements OnInit {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
                     this.form.get('start').setValue(res.data);
-                    console.log(this.form.get('start').valid);
+                    this.cd.markForCheck();
                     break;
                 case RUNNER_MAP_SET_END:
                     this.form.get('end').setValue(res.data);
+                    this.cd.markForCheck();
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
                     this.startLoading = res.data;
