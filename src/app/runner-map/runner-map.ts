@@ -9,8 +9,7 @@ export const RUNNER_MAP_SET_HEIGHT = 'RUNNER_MAP_SET_HEIGHT';
 export const RUNNER_MAP_SET_START = 'RUNNER_MAP_SET_START';
 export const RUNNER_MAP_SET_END = 'RUNNER_MAP_SET_END';
 export const RUNNER_MAP_TIME_PICKER = 'RUNNER_MAP_TIME_PICKER';
-export const RUNNER_MAP_SELECT_START_ADDRESS = 'RUNNER_MAP_SELECT_START_ADDRESS';
-export const RUNNER_MAP_SELECT_END_ADDRESS = 'RUNNER_MAP_SELECT_END_ADDRESS';
+export const RUNNER_MAP_SELECT_ADDRESS = 'RUNNER_MAP_SELECT_ADDRESS';
 export const RUNNER_MAP_MY_LOCATION = 'RUNNER_MAP_MY_LOCATION';
 export const RUNNER_MAP_INIT = 'RUNNER_MAP_INIT';
 export const RUNNER_MAP_SET_START_LOAING = 'RUNNER_MAP_SET_START_LOAING';
@@ -86,15 +85,15 @@ export class RunnerMapComponent {
     }
 
     onStartAddressSelect() {
-        this.emit({ type: RUNNER_MAP_SELECT_START_ADDRESS, data: '' });
+        this.emit({ type: RUNNER_MAP_SELECT_ADDRESS, data: 'start' });
     }
 
     onEndAddressSelect() {
-        this.emit({ type: RUNNER_MAP_SELECT_END_ADDRESS, data: '' });
+        this.emit({ type: RUNNER_MAP_SELECT_ADDRESS, data: 'end' });
     }
 
     finish() {
-        this.emit({ type: RUNNER_MAP_FINISH, data: '' });
+        this.emit({ type: RUNNER_MAP_FINISH, data: this.form.value });
     }
 
     setWeight(e: any) {
