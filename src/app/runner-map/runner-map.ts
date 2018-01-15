@@ -67,6 +67,8 @@ export class RunnerMapComponent implements OnInit {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
                     this.form.get('start').setValue(res.data);
+                    console.log(this.form.get('start').valid);
+                    console.log(this.form.get('start').value);
                     this.cd.markForCheck();
                     break;
                 case RUNNER_MAP_SET_END:
