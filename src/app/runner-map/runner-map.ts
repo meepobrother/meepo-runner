@@ -71,6 +71,8 @@ export class RunnerMapComponent {
                     this.startSetting = setting.start;
                     this.endSetting = setting.end;
                     this.weightSetting = setting.weight;
+                    console.log(setting);
+                    console.log(this);
                     break;
                 default:
                     break;
