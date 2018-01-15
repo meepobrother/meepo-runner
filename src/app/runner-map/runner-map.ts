@@ -43,7 +43,7 @@ export class RunnerMapComponent {
         this.form = this.fb.group({
             start: [{}],
             end: [{}],
-            time: [{}],
+            timeval: [{}],
             weight: ['']
         });
         this.on((res: any) => {

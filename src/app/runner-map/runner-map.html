@@ -1,6 +1,6 @@
 <div class="meepo__map_footer" [formGroup]="form">
     <div class="footer_container">
-        <time-picker formControlName="time"></time-picker>
+        <time-picker formControlName="timeval"></time-picker>
         <div class="address_item" *ngIf="startSetting?.show" (click)="onStartAddressSelect()">
             <span class="home_unlock_to_success_17"></span>
             <input class="weui-input" *ngIf="startLoading" type="text" readonly disabled placeholder="正在获取位置...">
