@@ -54,15 +54,19 @@ export class RunnerMapComponent {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
                     this.form.get('start').setValue(res.data);
-                    this.startLoading = false;
-                    this.start = res.data;
-                    this.cd.markForCheck();
+                    setTimeout(() => {
+                        this.startLoading = false;
+                        this.start = res.data;
+                        console.log(res.data);
+                    }, 0);
                     break;
                 case RUNNER_MAP_SET_END:
                     this.form.get('end').setValue(res.data);
-                    this.endLoading = false;
-                    this.end = res.data;
-                    this.cd.markForCheck();
+                    setTimeout(() => {
+                        this.endLoading = false;
+                        this.end = res.data;
+                        console.log(res.data);
+                    }, 0);
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
                     this.startLoading = res.data;
