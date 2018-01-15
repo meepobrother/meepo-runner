@@ -46,7 +46,6 @@ export class RunnerMapComponent {
             time: [''],
             weight: ['']
         });
-        console.log(this.form);
         this.on((res: any) => {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
@@ -70,8 +69,6 @@ export class RunnerMapComponent {
                     this.startSetting = setting.start;
                     this.endSetting = setting.end;
                     this.weightSetting = setting.weight;
-                    console.log(setting);
-                    console.log(this);
                     break;
                 default:
                     break;
@@ -100,11 +97,6 @@ export class RunnerMapComponent {
 
     onEndAddressSelect() {
         this.emit({ type: RUNNER_MAP_SELECT_ADDRESS, data: 'end' });
-    }
-
-    finish() {
-        console.log(this.form.value);
-        this.emit({ type: RUNNER_MAP_FINISH, data: this.form.value });
     }
 
     setWeight(e: any) {
