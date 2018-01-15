@@ -1,4 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component, OnInit, Input, Output,
+    EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy
+} from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -38,7 +41,8 @@ export class RunnerMapComponent {
     btnTitle: string;
     constructor(
         public event: SocketService,
-        public fb: FormBuilder
+        public fb: FormBuilder,
+        public cd: ChangeDetectorRef
     ) {
         this.form = this.fb.group({
             start: [''],
@@ -52,11 +56,13 @@ export class RunnerMapComponent {
                     this.form.get('start').setValue(res.data);
                     this.startLoading = false;
                     this.start = res.data;
+                    this.cd.markForCheck();
                     break;
                 case RUNNER_MAP_SET_END:
                     this.form.get('end').setValue(res.data);
                     this.endLoading = false;
                     this.end = res.data;
+                    this.cd.markForCheck();
                     break;
                 case RUNNER_MAP_SET_START_LOAING:
                     this.startLoading = res.data;
