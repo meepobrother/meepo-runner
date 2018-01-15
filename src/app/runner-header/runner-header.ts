@@ -40,10 +40,12 @@ export class RunnerHeaderComponent implements OnInit {
                     this.headerItems = res.data;
                     if (this.headerItems.length > 0) {
                         this.headerItem = this.headerItems[0];
+                        this._onHeaderItem(this.headerItem);
                     }
                     this.headerItems.map(res => {
                         if (res.active) {
                             this.headerItem = res;
+                            this._onHeaderItem(this.headerItem);
                         }
                     });
                     break;

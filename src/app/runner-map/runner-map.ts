@@ -14,6 +14,7 @@ export const RUNNER_MAP_MY_LOCATION = 'RUNNER_MAP_MY_LOCATION';
 export const RUNNER_MAP_INIT = 'RUNNER_MAP_INIT';
 export const RUNNER_MAP_SET_START_LOAING = 'RUNNER_MAP_SET_START_LOAING';
 export const RUNNER_MAP_SET_END_LOAING = 'RUNNER_MAP_SET_END_LOAING';
+export const RUNNER_MAP_VALUE_CHANGES = 'RUNNER_MAP_VALUE_CHANGES';
 
 import { SocketService } from 'meepo-event';
 @Component({
@@ -41,11 +42,12 @@ export class RunnerMapComponent {
         public fb: FormBuilder
     ) {
         this.form = this.fb.group({
-            start: [{}],
-            end: [{}],
-            timeval: [{}],
+            start: [''],
+            end: [''],
+            time: [''],
             weight: ['']
         });
+        console.log(this.form);
         this.on((res: any) => {
             switch (res.type) {
                 case RUNNER_MAP_SET_START:
@@ -73,7 +75,14 @@ export class RunnerMapComponent {
                 default:
                     break;
             }
-        })
+        });
+
+        this.form.valueChanges.subscribe(res => {
+            this.emit({
+                type: RUNNER_MAP_VALUE_CHANGES,
+                data: res
+            });
+        });
     }
 
     private on(fn: Function) {
@@ -93,6 +102,7 @@ export class RunnerMapComponent {
     }
 
     finish() {
+        console.log(this.form.value);
         this.emit({ type: RUNNER_MAP_FINISH, data: this.form.value });
     }
 
@@ -106,5 +116,9 @@ export class RunnerMapComponent {
 
     myLocation(e: any, isStart: boolean = true) {
         this.emit({ type: RUNNER_MAP_MY_LOCATION, data: isStart });
+    }
+
+    onPicker(e: any) {
+        this.form.get('time').setValue(e);
     }
 }

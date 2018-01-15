@@ -1,6 +1,6 @@
 {
     "name": "meepo-runner",
-    "version": "2.3.3",
+    "version": "2.3.5",
     "description": "runner for angular",
     "main": "./bundles/meepo.umd.js",
     "module": "./esm5/meepo.js",
@@ -61,6 +61,7 @@
         "meepo-event": "*",
         "meepo-forms": "*",
         "meepo-jssdk": "*",
+        "meepo-picker": "^1.4.6",
         "meepo-ua": "*",
         "meepo-uuid": "*",
         "meepo-xscroll": "*",
