@@ -4,14 +4,14 @@
         <div class="address_item" *ngIf="startSetting?.show" (click)="onStartAddressSelect()">
             <span class="home_unlock_to_success_17"></span>
             <input class="weui-input" *ngIf="startLoading" type="text" readonly disabled placeholder="正在获取位置...">
-            <input class="weui-input" *ngIf="!startLoading && start" type="text" readonly disabled [attr.value]="start.address + (start.title ? '('+ start.title +')' : '')">
+            <input class="weui-input" *ngIf="!startLoading" type="text" readonly disabled [attr.value]="start">
             <span class="bt_ic_postal_code" (click)="myLocation($event, true)"></span>
         </div>
         <div class="address_item_divider"></div>
         <div class="address_item" *ngIf="endSetting?.show" (click)="onEndAddressSelect()">
             <span class="bg_redpacket_marker"></span>
             <input class="weui-input" *ngIf="endLoading" type="text" readonly disabled placeholder="请选择位置...">
-            <input class="weui-input" *ngIf="!endLoading && end" type="text" readonly disabled [attr.value]="end.address + (end.title ? ('('+ end.title + ')') : '')">
+            <input class="weui-input" *ngIf="!endLoading" type="text" readonly disabled [attr.value]="end">
             <span class="bt_ic_postal_code" (click)="myLocation($event, false)"></span>
         </div>
         <div class="address_item_divider"></div>

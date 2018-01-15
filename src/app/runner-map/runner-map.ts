@@ -28,17 +28,17 @@ import { SocketService } from 'meepo-event';
 export class RunnerMapComponent {
     startLoading: boolean = true;
     startSetting: any;
-    start: any;
+    @Input() start: any;
 
     endLoading: boolean = true;
     endSetting: any;
-    end: any;
+    @Input() end: any;
 
     weightSetting: any;
 
     form: FormGroup;
-
     btnTitle: string;
+
     constructor(
         public event: SocketService,
         public fb: FormBuilder,
